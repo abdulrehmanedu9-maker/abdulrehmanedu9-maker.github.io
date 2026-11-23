@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Abdul Rehman | IoT, Networking and Python</title>
+  <meta name="description" content="Abdul Rehman is a computer science student in Rawalpindi, Pakistan, building IoT and embedded systems, networking projects and Python applications. Open to freelance work.">
+  <meta name="theme-color" content="#0b6580">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="#top">Abdul Rehman</a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="#about">About</a>
+        <a href="#services">What I build</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <section class="hero">
+      <div class="wrap">
+        <h1>Abdul Rehman</h1>
+        <p class="tagline">Computer science student building IoT and embedded systems, networking projects and Python applications.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#projects">See my projects</a>
+          <a class="text-link" href="mailto:abdul.rehman.edu9@gmail.com">Email me</a>
+        </div>
+
+        <div class="link-wire">
+          <svg viewBox="0 0 640 90" role="img" aria-label="Two ESP8266 boards exchanging a message over ESP-NOW">
+            <line class="wire" x1="40" y1="55" x2="600" y2="55"/>
+            <circle class="node" cx="30" cy="55" r="10"/>
+            <circle class="node" cx="610" cy="55" r="10"/>
+            <circle class="pulse" cx="40" cy="55" r="5"/>
+            <text x="30" y="88" text-anchor="middle">ESP8266</text>
+            <text x="320" y="38" text-anchor="middle">ESP-NOW</text>
+            <text x="610" y="88" text-anchor="middle">ESP8266</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="wrap section-grid">
+        <h2>About</h2>
+        <div>
+          <p>I am a BS Computer Science student at Allama Iqbal Open University, based in Rawalpindi, Pakistan. I hold a merit-based scholarship and I learn best by building things that have to work on real hardware and real networks.</p>
+          <p>My main project is a wireless obstacle detection system on two ESP8266 boards, with a web dashboard and a small machine learning model that runs on the device itself. I am currently working on its fifth phase.</p>
+          <p>I am open to freelance work, and I am learning React and AI integration next.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="wrap section-grid">
+        <h2>What I can build for you</h2>
+        <ul class="lead-list">
+          <li><strong>IoT and embedded prototypes.</strong> Sensor reading, wireless links between ESP8266 boards, and simple dashboards that store and show the data.</li>
+          <li><strong>Python scripts and command line tools.</strong> Menu-driven applications, data handling and small automation tasks.</li>
+          <li><strong>Network design and simulation.</strong> IP addressing, DHCP and RIP routing planned and tested in Cisco Packet Tracer.</li>
+          <li><strong>Small machine learning models for sensor data.</strong> Anomaly detection and classification, at a basic level, including models small enough to run on a microcontroller.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="wrap section-grid">
+        <h2>Projects</h2>
+        <div>
+
+          <article class="project">
+            <h3>Real Time Device to Device Wireless Communication System</h3>
+            <p class="project-meta">ESP8266, Arduino C++, ESP-NOW, PHP, MySQL, scikit-learn, TinyML</p>
+            <p>A multi-phase obstacle detection system built on two ESP8266 boards. It combines ultrasonic and PIR sensor fusion with ESP-NOW communication, and a PHP and MySQL backend with a dashboard and Isolation Forest anomaly detection. Alerts are graded by a rule based severity classifier, and a Decision Tree trained in scikit-learn runs on the ESP8266 through micromlgen, so alerts work on the device without Wi-Fi or a server.</p>
+
+            <ul class="phases" aria-label="Project phases">
+              <li><span>Phase 1</span><a href="https://github.com/abdulrehmanedu9-maker/Real-Time-Device-to-Device-Wireless-Communication-System-Using-ESP-NOW-Protocol">View code</a></li>
+              <li><span>Phase 2</span><a href="https://github.com/abdulrehmanedu9-maker/Real-Time-Device-to-Device-Wireless-Communication-System-Using-ESP-NOW-Protocol-Phase-2">View code</a></li>
+              <li><span>Phase 3</span><a href="https://github.com/abdulrehmanedu9-maker/-Real-Time-Device-to-Device-Wireless-Communication-System-Using-ESP-NOW-Protocol-Phase-3">View code</a></li>
+              <li><span>Phase 4</span><a href="https://github.com/abdulrehmanedu9-maker/Real-Time-Device-to-Device-Wireless-Communication-System-Using-ESP-NOW-Protocol-Phase-4">View code</a></li>
+              <li><span>Phase 5</span><span class="state">In progress</span></li>
+            </ul>
+
+            <!-- Add a screenshot of your dashboard at images/d2d.png. If the file is missing, this block removes itself. -->
+            <figure>
+              <img src="images/d2d.png" alt="Dashboard of the device to device obstacle detection system" loading="lazy" onerror="this.closest('figure').remove()">
+              <figcaption>Dashboard of the obstacle detection system.</figcaption>
+            </figure>
+          </article>
+
+          <article class="project">
+            <h3>Multi Campus Network Simulation</h3>
+            <p class="project-meta">Cisco Packet Tracer, RIP, DHCP, IP addressing</p>
+            <p>Several university campuses connected through a simulated network. Routing Information Protocol provides dynamic routing between the locations, and DHCP with planned IP addressing lets devices on every campus communicate with each other.</p>
+
+            <!-- Add a screenshot of your topology at images/multi-campus.png. If the file is missing, this block removes itself. -->
+            <figure>
+              <img src="images/multi-campus.png" alt="Network topology of the multi campus simulation in Cisco Packet Tracer" loading="lazy" onerror="this.closest('figure').remove()">
+              <figcaption>Network topology in Cisco Packet Tracer.</figcaption>
+            </figure>
+
+            <div class="project-links">
+              <a href="https://github.com/abdulrehmanedu9-maker/Multi-Campus-Network-Simulation">View code</a>
+            </div>
+          </article>
+
+          <article class="project">
+            <h3>Python command line applications</h3>
+            <p class="project-meta">Python</p>
+            <p>An ATM simulation with PIN verification, balance inquiry and withdrawals, a task manager with add, view, update and delete options, and a cafe menu and billing system built with a team member. All three run in the terminal.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="skills">
+      <div class="wrap section-grid">
+        <h2>Skills</h2>
+        <dl class="skills">
+          <dt>Languages</dt>
+          <dd>Python, C++, Java, SQL</dd>
+          <dt>IoT and embedded</dt>
+          <dd>ESP8266, Arduino C++, ESP-NOW, ultrasonic and PIR sensors</dd>
+          <dt>Networking</dt>
+          <dd>IP addressing, DHCP, RIP routing, Cisco Packet Tracer</dd>
+          <dt>Data and machine learning</dt>
+          <dd>scikit-learn, Isolation Forest, Decision Tree, TinyML (basic level)</dd>
+          <dt>Backend and tools</dt>
+          <dd>PHP, MySQL, Git, Linux fundamentals</dd>
+          <dt>Learning now</dt>
+          <dd>React and AI integration</dd>
+          <dt>Education</dt>
+          <dd>BS Computer Science, Allama Iqbal Open University, 2024 to present. Python Programming (Basic) certificate, Arch Technologies, 2025.</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="wrap section-grid">
+        <h2>Contact</h2>
+        <div>
+          <p>I am taking on freelance projects. Tell me what you need built and I will reply with questions and a realistic timeline.</p>
+          <a class="contact-email" href="mailto:abdul.rehman.edu9@gmail.com">abdul.rehman.edu9@gmail.com</a>
+          <div class="contact-links">
+            <a href="https://www.linkedin.com/in/abdul-rehman-3a93472b5">LinkedIn</a>
+            <a href="https://github.com/abdulrehmanedu9-maker">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Abdul Rehman, Rawalpindi, Pakistan.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
