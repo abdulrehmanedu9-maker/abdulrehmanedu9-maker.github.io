@@ -1,382 +1,610 @@
+/* =====================================================
+   Portfolio stylesheet for Abdul Rehman
+   Sections in this file:
+   1. Colors (change the whole look from here)
+   2. Base styles
+   3. Navigation bar
+   4. Header and photo
+   5. Page sections (About, Education, Services)
+   6. Projects table
+   7. Skills
+   8. Contact
+   9. Footer
+   10. Mobile adjustments
+   ===================================================== */
+
+
+/* ---------- 1. COLORS ----------
+   All colors live here as variables. Change a value once
+   and it updates everywhere on the page.
+   --bg          page background
+   --surface     background of nav bar, tables and cards
+   --ink         main text color
+   --muted       softer text color (dates, descriptions)
+   --line        thin border and divider lines
+   --accent      main brand color (buttons, links, role text)
+   --accent-ink  text color placed on top of the accent color
+*/
 :root {
-  --bg: #edf1f3;
-  --surface: #f7f9fa;
-  --ink: #13202a;
-  --muted: #4a5b67;
-  --line: #c5d0d7;
-  --accent: #0b6580;
-  --accent-ink: #ffffff;
-  --amber: #8a5a00;
-  --head: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
   color-scheme: light dark;
+  --bg: #ffffff;
+  --surface: #fff;
+  --ink: #14212b;
+  --muted: #51606c;
+  --line: #d5dde4;
+  --accent: #0b5c7a;
+  --accent-ink: #fff;
+
+  /* Side margins of the text, like the margins of an A4 page.
+     On A4 paper the side margin is about 9.5 percent of the page
+     width (20mm of 210mm), so the same proportion is used here:
+     the website fills the whole screen, and only the text keeps
+     neat margins on the left and right.
+     Very wide monitors stop at 160px, and phones use smaller
+     margins (see the mobile section at the bottom). */
+  --page-pad: clamp(18px, 9.5vw, 160px);
 }
 
+/* Dark colors. These apply automatically when the visitor's
+   phone or computer is set to dark mode, and the light colors
+   above are used when it is set to light mode. Nothing has to
+   be switched by hand. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0d1920;
-    --surface: #13242d;
-    --ink: #e6eef2;
-    --muted: #9fb2bd;
-    --line: #2a3e49;
-    --accent: #6cc7e3;
-    --accent-ink: #0d1920;
-    --amber: #e8b04a;
+    --bg: #0e1519;
+    --surface: #151f25;
+    --ink: #e6edf1;
+    --muted: #9aabb6;
+    --line: #27363f;
+    --accent: #5cc0e0;
+    --accent-ink: #06222c;
   }
 }
 
-*,
-*::before,
-*::after {
+/* ---------- 2. BASE STYLES ---------- */
+
+/* Makes width and height include padding and border,
+   which keeps layouts predictable. */
+* {
   box-sizing: border-box;
 }
 
+/* Smooth scrolling when a menu link is clicked.
+   scroll-padding-top stops the sticky menu from covering
+   the heading of the section you jump to. */
 html {
   scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 70px;
+  -webkit-text-size-adjust: 100%; /* stops phones from enlarging text on their own */
 }
 
+/* Default page font, size and line spacing.
+   Source Sans 3 is loaded from Google Fonts in index.html;
+   system-ui is the backup if it fails to load. */
 body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--body);
-  font-size: 1.0625rem;
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  /* Fluid text size: about 16px on phones, growing smoothly
+     to about 19px on large laptop and desktop screens. */
+  font-size: clamp(16px, 0.94rem + 0.25vw, 19px);
   line-height: 1.7;
+  overflow-wrap: break-word; /* very long words never push the page sideways */
 }
 
-img,
-svg {
-  max-width: 100%;
-  display: block;
+/* All headings use the serif font Fraunces (Georgia is the backup). */
+h1, h2, h3 {
+  font-family: Fraunces, Georgia, serif;
+  line-height: 1.2;
+  margin: 0;
 }
 
+/* Default link color */
 a {
   color: var(--accent);
-  text-underline-offset: 0.2em;
 }
 
-a:hover {
-  text-decoration-thickness: 2px;
-}
-
-a:focus-visible,
-.btn:focus-visible {
+/* Visible outline when a link or button is selected with the
+   keyboard (Tab key). Good for accessibility, so keep it. */
+a:focus-visible, button:focus-visible {
   outline: 3px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 2px;
+  outline-offset: 2px;
 }
 
-h1,
-h2,
-h3 {
-  font-family: var(--head);
-  line-height: 1.15;
-  margin: 0;
-  letter-spacing: -0.01em;
-}
-
-p {
-  margin: 0 0 1em;
-  max-width: 62ch;
-}
-
+/* Menu bar and footer use the same side margins as the text,
+   so everything lines up on the left and right. */
 .wrap {
-  width: 100%;
-  max-width: 64rem;
-  margin-inline: auto;
-  padding-inline: clamp(1.25rem, 5vw, 3rem);
+  margin: 0 auto;
+  padding: 0 var(--page-pad);
 }
 
-/* Header */
-.site-header {
-  padding-block: 1.5rem;
+/* Main content. The website uses the full width of the screen;
+   --page-pad adds the A4 style margins on both sides. */
+.page {
+  padding: 0 var(--page-pad);
 }
 
-.site-header .wrap {
+/* Inside .page the margins already come from .page,
+   so the inner containers add no extra padding. */
+.page .wrap {
+  padding: 0;
+}
+
+
+/* ---------- 3. NAVIGATION BAR ---------- */
+
+/* Menu bar that stays at the top while scrolling */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 5; /* keeps the menu above other content */
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Lays out the menu links in a row.
+   On small screens the links wrap onto a second line. */
+nav .wrap {
   display: flex;
+  gap: 6px 22px; /* row gap and column gap between links */
   flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem 2rem;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
-.brand {
-  font-family: var(--head);
-  font-weight: 700;
-  font-size: 1.125rem;
-  color: var(--ink);
+/* Menu link style */
+nav a {
   text-decoration: none;
-}
-
-.site-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
-  font-family: var(--head);
-  font-size: 0.975rem;
-}
-
-.site-nav a {
   color: var(--muted);
-  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
 }
 
-.site-nav a:hover {
-  color: var(--ink);
-  text-decoration: underline;
+/* Menu link color when the mouse is over it */
+nav a:hover {
+  color: var(--accent);
 }
 
-/* Hero */
-.hero {
-  padding-block: clamp(2.5rem, 8vw, 5.5rem) clamp(2.5rem, 6vw, 4rem);
+
+/* ---------- 4. HEADER AND PHOTO ---------- */
+
+/* Top area of the page: name, role, buttons and photo */
+header {
+  padding: 72px 0 56px; /* top, sides, bottom space */
 }
 
-.hero h1 {
-  font-size: clamp(2.75rem, 8vw, 5.25rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
+/* Name. clamp(min, preferred, max) makes the size
+   grow and shrink with the screen width. */
+header h1 {
+  font-size: clamp(2.4rem, 7vw, 4.2rem);
+  font-weight: 700;
+  letter-spacing: -.01em;
 }
 
-.hero .tagline {
-  margin-top: 1.25rem;
-  font-size: clamp(1.15rem, 2.6vw, 1.4rem);
-  line-height: 1.5;
-  max-width: 34ch;
-  color: var(--ink);
+/* Job title line under the name */
+.role {
+  font-size: 1.25rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 10px 0 18px;
 }
 
-.hero-actions {
+/* Short intro paragraph. max-width keeps lines easy to read. */
+.lead {
+  max-width: none; /* no limit: the text uses the full width of the page content area */
+  color: var(--muted);
+}
+
+/* Holds the two header buttons side by side */
+.btns {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem 1.25rem;
-  align-items: center;
-  margin-top: 1.75rem;
+  gap: 12px;
+  margin-top: 26px;
 }
 
+/* Outlined button (for example "Get in touch") */
 .btn {
   display: inline-block;
-  font-family: var(--head);
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
   font-weight: 600;
-  font-size: 1rem;
-  padding: 0.7rem 1.25rem;
+}
+
+/* Filled button (for example "View publications") */
+.btn.main {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Puts the text block and the photo side by side.
+   wrap-reverse means that on a narrow screen the photo
+   moves above the text. */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 44px;
+  flex-wrap: wrap-reverse;
+}
+
+/* Text block next to the photo.
+   380px is the width at which it drops to a new line. */
+.hero .text {
+  flex: 1 1 380px;
+}
+
+/* Round profile photo.
+   object-fit: cover crops the picture to fill the circle
+   without stretching it. Change 210px for a bigger or
+   smaller photo. */
+.photo {
+  width: 210px;
+  height: 210px;
+  border-radius: 50%; /* 50% makes a circle; use 12px for rounded square */
+  object-fit: cover;
+  object-position: center 20%; /* keeps the face in view when the photo is cropped to a circle */
+  border: 4px solid var(--surface);
+  box-shadow: 0 0 0 2px var(--accent); /* thin colored ring around the photo */
+  flex: 0 0 auto;
+}
+
+
+/* ---------- 5. PAGE SECTIONS ---------- */
+
+/* Every section (About, Experience, etc.) has space
+   around it and a thin line on top. */
+section {
+  padding: 46px 0;
+  border-top: 1px solid var(--line);
+}
+
+/* Section headings such as "Experience" */
+section h2 {
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2rem); /* section headings scale with the screen */
+  margin-bottom: 22px;
+}
+
+/* One row in Experience or Education:
+   dates on the left (190px), details on the right. */
+.item {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 6px 28px;
+  margin-bottom: 26px;
+}
+
+/* Date text on the left */
+.item .when {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* Job title or degree name */
+.item h3 {
+  font-size: 1.15rem;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+}
+
+/* Description under the job title or degree */
+.item p {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+
+/* ---------- 6. PROJECTS TABLE ---------- */
+
+/* Box around the table. overflow-x: auto adds a sideways
+   scroll on narrow screens instead of breaking the layout. */
+.tablebox {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+/* The table itself */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px; /* below this width the box scrolls sideways */
+}
+
+/* Spacing and lines for all cells (header and body) */
+th, td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+/* Column titles: No., Title, Intro, Result and demo */
+th {
+  font-size: 15px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* No line under the last row, so the box border is clean */
+tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Column widths:
+   td.n = project number, td.t = title, td.i = intro, td.r = result and demo.
+   The Intro column takes whatever space is left. */
+td.n { width: 92px; white-space: nowrap; font-weight: 600; color: var(--accent); }
+td.t { width: 210px; }
+td.r { width: 250px; }
+
+/* Small grey line under a project title (technologies used) */
+.stack {
+  display: block;
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Paragraphs inside table cells */
+td p { margin: 0 0 .6em; }
+td p:last-child { margin-bottom: 0; }
+
+/* A row of buttons: Phase label, Repository, Demo video */
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin-top: 10px;
+}
+.links span {
+  color: var(--muted);
+  font-size: 15px;
+  min-width: 62px;
+}
+
+/* Small button used for Repository and Demo video */
+.read {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 5px;
   background: var(--accent);
   color: var(--accent-ink);
   text-decoration: none;
-  border-radius: 4px;
-}
-
-.btn:hover {
-  filter: brightness(1.08);
-}
-
-.text-link {
-  font-family: var(--head);
   font-weight: 600;
+  font-size: 14px;
 }
 
-.link-wire {
-  margin-top: clamp(2.5rem, 6vw, 4rem);
-  color: var(--muted);
-}
+/* Links left empty in index.html are hidden by the script there */
+[hidden] { display: none !important; }
 
-.link-wire svg {
-  width: 100%;
-  max-width: 40rem;
-  height: auto;
-  overflow: visible;
-}
 
-.link-wire .node {
-  fill: var(--bg);
-  stroke: var(--accent);
-  stroke-width: 2.5;
-}
+/* ---------- 7. SKILLS ---------- */
 
-.link-wire .wire {
-  stroke: var(--line);
-  stroke-width: 2;
-  stroke-dasharray: 5 6;
-}
-
-.link-wire text {
-  fill: var(--muted);
-  font-family: var(--head);
-  font-size: 13px;
-}
-
-.link-wire .pulse {
-  fill: var(--accent);
-  animation: hop 2.6s ease-in-out infinite alternate;
-}
-
-@keyframes hop {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(560px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  .link-wire .pulse {
-    animation: none;
-    transform: translateX(280px);
-  }
-}
-
-/* Sections */
-.section {
-  border-top: 1px solid var(--line);
-  padding-block: clamp(2.5rem, 6vw, 3.75rem);
-}
-
-.section-grid {
-  display: grid;
-  gap: 1.25rem 3rem;
-}
-
-@media (min-width: 52rem) {
-  .section-grid {
-    grid-template-columns: 11rem 1fr;
-  }
-}
-
-.section h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.section h3 {
-  font-size: 1.35rem;
-  font-weight: 700;
-}
-
-.lead-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 1.1rem;
-}
-
-.lead-list strong {
-  font-family: var(--head);
-  font-weight: 600;
-}
-
-/* Projects */
-.project + .project {
-  margin-top: 3rem;
-  padding-top: 3rem;
-  border-top: 1px solid var(--line);
-}
-
-.project-meta {
-  color: var(--muted);
-  font-size: 0.975rem;
-  margin: 0.35rem 0 1rem;
-}
-
-.project figure {
-  margin: 1.5rem 0 0;
-}
-
-.project figure img {
-  width: 100%;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-}
-
-.project figcaption {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-
-.phases {
-  margin: 1.25rem 0 0;
-  padding: 0;
-  list-style: none;
-  max-width: 30rem;
-  border-top: 1px solid var(--line);
-}
-
-.phases li {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid var(--line);
-  font-family: var(--head);
-}
-
-.phases .state {
-  color: var(--amber);
-  font-weight: 600;
-}
-
-.project-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
-  margin-top: 1.25rem;
-  font-family: var(--head);
-  font-weight: 600;
-}
-
-/* Skills */
+/* Skill blocks in a responsive grid. Each block is at least
+   260px wide; extra blocks move to the next row automatically. */
 .skills {
-  margin: 0;
   display: grid;
-  gap: 1rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
 }
 
-@media (min-width: 40rem) {
-  .skills {
-    grid-template-columns: 12rem 1fr;
+/* Title of each skill block, such as "Programming" */
+.skills h3 {
+  font-size: 1.05rem;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+/* Text inside each skill block */
+.skills p {
+  margin: 0;
+  color: var(--muted);
+}
+
+
+/* ---------- 8. CONTACT ---------- */
+
+/* Contact icons: one round colored button for each of
+   Email, WhatsApp, LinkedIn and GitHub, with a small label below. */
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+/* Each link is an icon with its label under it */
+.social a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* The round button */
+.social .icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .15s; /* small lift on hover */
+}
+
+/* Icon shape inside the button (always white) */
+.social svg {
+  width: 28px;
+  height: 28px;
+  fill: #fff;
+}
+
+/* Button lifts up a little when the mouse is over it */
+.social a:hover .icon {
+  transform: translateY(-3px);
+}
+
+/* Brand colors of each icon (Email, WhatsApp, LinkedIn, GitHub) */
+.social .gmail { background: #EA4335; }
+.social .whatsapp { background: #25D366; }
+.social .linkedin { background: #0A66C2; }
+.social .github { background: #24292F; }
+
+/* ---------- 9. FOOTER ---------- */
+
+footer {
+  padding: 30px 0;
+  color: var(--muted);
+  font-size: 14px;
+  border-top: 1px solid var(--line);
+}
+
+
+/* ---------- TEXT ALIGNMENT (JUSTIFY) ----------
+   All paragraph text and table cells are justified, so both
+   edges of the text look straight and neat.
+   hyphens: auto breaks long words at the line end, which keeps
+   the gaps between words small (works because index.html has
+   lang="en" at the top).
+   To turn justify off everywhere, delete this whole block. */
+p, td {
+  text-align: justify;
+  hyphens: auto;
+  /* Only break words that are at least 8 letters long, and keep
+     at least 4 letters on each side of the break. This removes
+     awkward breaks like "cur-rently" and "hu-man". */
+  hyphenate-limit-chars: 8 4 4;
+  /* Lets the browser avoid a single lonely word on the last line */
+  text-wrap: pretty;
+}
+
+/* Column titles, number, date and button columns stay left
+   aligned. Justify does not suit short one-line cells. */
+th, td.n, td.d, td.l {
+  text-align: left;
+}
+
+
+/* ---------- 10. TABLET AND MOBILE ADJUSTMENTS ----------
+   These rules apply only when the screen is 720px wide
+   or smaller (phones and small tablets). */
+@media (max-width: 720px) {
+  /* Smaller side margins on phones and small tablets */
+  :root {
+    --page-pad: max(18px, 5vw);
+  }
+
+  /* Dates move above the job details instead of beside them */
+  .item {
+    grid-template-columns: 1fr;
+    gap: 2px;
+    margin-bottom: 22px;
+  }
+
+  /* Less space at the top of the page */
+  header {
+    padding: 44px 0 36px;
+  }
+
+  /* Smaller photo on phones */
+  .photo {
+    width: 150px;
+    height: 150px;
+  }
+
+  /* Smaller gaps between sections */
+  section {
+    padding: 34px 0;
+  }
+
+  /* Menu links are a little tighter so they fit in fewer lines */
+  nav .wrap {
+    gap: 4px 16px;
+  }
+  nav a {
+    font-size: 14px;
+  }
+
+  /* Header buttons share the width equally */
+  .btn {
+    flex: 1 1 140px;
+    text-align: center;
+  }
+
+  /* The projects table becomes one card per project on phones,
+     so nobody has to scroll sideways. A small label (taken from
+     data-label in index.html) is shown above each part. */
+  table {
+    min-width: 0;
+  }
+  thead {
+    display: none;
+  }
+  table, tbody, tr, td {
+    display: block;
+    width: 100%;
+  }
+  tr {
+    padding: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  tr:last-child {
+    border-bottom: 0;
+  }
+  td, td.n, td.t, td.r {
+    width: auto;
+    border: 0;
+    padding: 0 0 12px;
+  }
+  td:last-child {
+    padding-bottom: 0;
+  }
+  td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 2px;
   }
 }
 
-.skills dt {
-  font-family: var(--head);
-  font-weight: 600;
-}
 
-.skills dd {
-  margin: 0;
+/* ---------- 11. PRINT / SAVE AS PDF ----------
+   When the page is printed (Ctrl + P) or saved as PDF, it is set up
+   for A4 paper with 15mm margins. The menu is hidden and the sheet
+   frame is removed, so the printout looks clean. */
+@page {
+  size: A4;
+  margin: 15mm;
 }
-
-/* Contact */
-.contact-email {
-  display: inline-block;
-  font-family: var(--head);
-  font-weight: 700;
-  font-size: clamp(1.25rem, 4vw, 1.9rem);
-  word-break: break-word;
-}
-
-.contact-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
-  margin-top: 1rem;
-  font-family: var(--head);
-  font-weight: 600;
-}
-
-.site-footer {
-  border-top: 1px solid var(--line);
-  padding-block: 2rem;
-  color: var(--muted);
-  font-size: 0.925rem;
-}
-
-.site-footer p {
-  margin: 0;
+@media print {
+  body {
+    background: #fff;
+    font-size: 11pt;
+  }
+  nav,
+  .btns {
+    display: none;
+  }
+  .page {
+    padding: 0;
+  }
+  header {
+    padding: 0 0 20px;
+  }
+  section {
+    padding: 20px 0;
+    break-inside: avoid; /* avoids splitting a section across two pages when possible */
+  }
 }
